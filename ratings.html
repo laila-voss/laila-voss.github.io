@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Searchable Job Data Table</title>
+    <title>Average Ratings</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            padding: 60px;
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        .description {
+            text-align: center;
+            margin-bottom: 20px;
         }
         .search-box {
-            margin-bottom: 10px;
-            padding: 8px;
+            margin-bottom: 20px;
+            padding: 12px;
             width: 100%;
-            max-width: 400px;
+            max-width: 600px;
             font-size: 16px;
             box-sizing: border-box;
         }
@@ -26,28 +34,47 @@
             border: 1px solid #ddd;
         }
         th, td {
-            padding: 8px;
+            padding: 14px;
             text-align: left;
         }
         th {
             background-color: #f2f2f2;
+            cursor: pointer;
+            position: relative;
+        }
+        th:after {
+            content: '\25B2\25BC';
+            font-size: 12px;
+            position: absolute;
+            right: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:nth-child(odd) {
+            background-color: #ffffff;
         }
     </style>
 </head>
 <body>
+
+    <h1>Average Ratings</h1>
+    <div class="description">
+        Recently, we asked Prolific participants to rate some occupations on the characteristics that you will consider today. Each of their answers was given on a 0-100 scale. Here are the average ratings for each characteristic and occupation.
+    </div>
 
     <input type="text" id="searchInput" class="search-box" onkeyup="searchTable()" placeholder="Search for job titles..">
 
     <table id="dataTable">
         <thead>
             <tr>
-                <th>Job Title</th>
-                <th>Prestige</th>
-                <th>Financial Compensation</th>
-                <th>Decision Making Power</th>
-                <th>Difficulty To Get</th>
-                <th>Interestingness</th>
-                <th>Positive Social Impact</th>
+                <th onclick="sortTable(0, 'str')">Job Title</th>
+                <th onclick="sortTable(1, 'num')">Prestige</th>
+                <th onclick="sortTable(2, 'num')">Financial Compensation</th>
+                <th onclick="sortTable(3, 'num')">Decision Making Power</th>
+                <th onclick="sortTable(4, 'num')">Difficulty To Get</th>
+                <th onclick="sortTable(5, 'num')">Interestingness and Variety</th>
+                <th onclick="sortTable(6, 'num')">Positive Social Impact</th>
             </tr>
         </thead>
         <tbody>
@@ -792,6 +819,57 @@
                             tr[i].style.display = "";
                             break;
                         }
+                    }
+                }
+            }
+        }
+
+        function sortTable(n, type) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("dataTable");
+            switching = true;
+            dir = "asc"; 
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    if (type === "num") {
+                        if (dir == "asc") {
+                            if (parseFloat(x.innerHTML) > parseFloat(y.innerHTML)) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        } else if (dir == "desc") {
+                            if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        }
+                    } else if (type === "str") {
+                        if (dir == "asc") {
+                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        } else if (dir == "desc") {
+                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
                     }
                 }
             }
