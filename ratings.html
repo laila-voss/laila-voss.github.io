@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Searchable Job Data Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .search-box {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+            max-width: 400px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" id="searchInput" class="search-box" onkeyup="searchTable()" placeholder="Search for job titles..">
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Prestige</th>
+                <th>Financial Compensation</th>
+                <th>Decision Making Power</th>
+                <th>Difficulty To Get</th>
+                <th>Interestingness</th>
+                <th>Positive Social Impact</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Accountants and Auditors</td>
+                <td>65.51</td>
+                <td>70.30</td>
+                <td>63.17</td>
+                <td>68.44</td>
+                <td>43.13</td>
+                <td>50.75</td>
+            </tr>
+            <tr>
+                <td>Agricultural Workers</td>
+                <td>32.97</td>
+                <td>35.78</td>
+                <td>35.42</td>
+                <td>29.63</td>
+                <td>36.58</td>
+                <td>68.50</td>
+            </tr>
+            <tr>
+                <td>Automotive Service Technicians and Mechanics</td>
+                <td>43.97</td>
+                <td>55.80</td>
+                <td>49.49</td>
+                <td>53.17</td>
+                <td>55.29</td>
+                <td>59.08</td>
+            </tr>
+            <tr>
+                <td>Bookkeeping, Accounting, and Auditing Clerks</td>
+                <td>51.44</td>
+                <td>56.74</td>
+                <td>48.88</td>
+                <td>56.03</td>
+                <td>35.38</td>
+                <td>47.71</td>
+            </tr>
+            <tr>
+                <td>Carpenters</td>
+                <td>43.81</td>
+                <td>56.54</td>
+                <td>51.32</td>
+                <td>45.27</td>
+                <td>54.71</td>
+                <td>56.47</td>
+            </tr>
+            <tr>
+                <td>Cashiers</td>
+                <td>23.66</td>
+                <td>27.26</td>
+                <td>26.39</td>
+                <td>21.80</td>
+                <td>21.54</td>
+                <td>46.92</td>
+            </tr>
+            <tr>
+                <td>Chief Executives</td>
+                <td>90.85</td>
+                <td>93.32</td>
+                <td>90.93</td>
+                <td>90.26</td>
+                <td>70.35</td>
+                <td>46.22</td>
+            </tr>
+            <tr>
+                <td>Childcare Workers</td>
+                <td>36.93</td>
+                <td>34.58</td>
+                <td>42.64</td>
+                <td>32.61</td>
+                <td>52.86</td>
+                <td>79.64</td>
+            </tr>
+            <tr>
+                <td>Clergy</td>
+                <td>59.63</td>
+                <td>41.02</td>
+                <td>60.89</td>
+                <td>53.45</td>
+                <td>47.34</td>
+                <td>62.88</td>
+            </tr>
+            <tr>
+                <td>Computer Support Specialists</td>
+                <td>54.18</td>
+                <td>59.45</td>
+                <td>56.38</td>
+                <td>58.61</td>
+                <td>53.76</td>
+                <td>57.09</td>
+            </tr>
+            <tr>
+                <td>Computer Systems Analysts</td>
+                <td>67.82</td>
+                <td>73.93</td>
+                <td>64.08</td>
+                <td>71.47</td>
+                <td>55.63</td>
+                <td>53.69</td>
+            </tr>
+            <tr>
+                <td>Computer and Information Systems Managers</td>
+                <td>69.93</td>
+                <td>74.86</td>
+                <td>71.13</td>
+                <td>70.45</td>
+                <td>63.15</td>
+                <td>58.15</td>
+            </tr>
+            <tr>
+                <td>Construction Laborers</td>
+                <td>31.15</td>
+                <td>44.15</td>
+                <td>28.42</td>
+                <td>30.50</td>
+                <td>42.52</td>
+                <td>55.86</td>
+            </tr>
+            <tr>
+                <td>Construction Managers</td>
+                <td>58.92</td>
+                <td>67.13</td>
+                <td>76.32</td>
+                <td>64.88</td>
+                <td>52.75</td>
+                <td>52.87</td>
+            </tr>
+            <tr>
+                <td>Cooks</td>
+                <td>36.18</td>
+                <td>37.63</td>
+                <td>42.04</td>
+                <td>34.67</td>
+                <td>48.79</td>
+                <td>60.68</td>
+            </tr>
+            <tr>
+                <td>Couriers and Messengers</td>
+                <td>29.22</td>
+                <td>35.51</td>
+                <td>31.11</td>
+                <td>28.20</td>
+                <td>41.64</td>
+                <td>50.86</td>
+            </tr>
+            <tr>
+                <td>Customer Service Representatives</td>
+                <td>25.01</td>
+                <td>29.99</td>
+                <td>25.51</td>
+                <td>22.64</td>
+                <td>37.64</td>
+                <td>48.10</td>
+            </tr>
+            <tr>
+                <td>Driver/Sales Workers and Truck Drivers</td>
+                <td>35.43</td>
+                <td>50.58</td>
+                <td>38.26</td>
+                <td>42.13</td>
+                <td>40.45</td>
+                <td>55.48</td>
+            </tr>
+            <tr>
+                <td>Education and Childcare Administrators</td>
+                <td>55.17</td>
+                <td>53.01</td>
+                <td>60.46</td>
+                <td>57.25</td>
+                <td>53.45</td>
+                <td>74.76</td>
+            </tr>
+            <tr>
+                <td>Electricians</td>
+                <td>53.88</td>
+                <td>67.72</td>
+                <td>49.82</td>
+                <td>65.65</td>
+                <td>56.31</td>
+                <td>60.70</td>
+            </tr>
+            <tr>
+                <td>Elementary and Middle School Teachers</td>
+                <td>50.31</td>
+                <td>43.24</td>
+                <td>49.51</td>
+                <td>51.52</td>
+                <td>62.31</td>
+                <td>79.89</td>
+            </tr>
+            <tr>
+                <td>Fast Food and Counter Workers</td>
+                <td>16.23</td>
+                <td>20.68</td>
+                <td>17.10</td>
+                <td>13.61</td>
+                <td>24.83</td>
+                <td>43.00</td>
+            </tr>
+            <tr>
+                <td>Financial Managers</td>
+                <td>73.02</td>
+                <td>77.27</td>
+                <td>73.61</td>
+                <td>72.06</td>
+                <td>53.65</td>
+                <td>54.19</td>
+            </tr>
+            <tr>
+                <td>First-Line Supervisors of Construction Trades and Extraction Workers</td>
+                <td>48.39</td>
+                <td>56.74</td>
+                <td>61.75</td>
+                <td>51.50</td>
+                <td>49.78</td>
+                <td>51.36</td>
+            </tr>
+            <tr>
+                <td>First-Line Supervisors of Food Preparation and Serving Workers</td>
+                <td>37.21</td>
+                <td>40.97</td>
+                <td>52.56</td>
+                <td>41.84</td>
+                <td>34.63</td>
+                <td>50.99</td>
+            </tr>
+            <tr>
+                <td>First-Line Supervisors of Non-Retail Sales Workers</td>
+                <td>43.48</td>
+                <td>47.19</td>
+                <td>53.35</td>
+                <td>45.91</td>
+                <td>44.50</td>
+                <td>41.98</td>
+            </tr>
+            <tr>
+                <td>First-Line Supervisors of Office and Administrative Support Workers</td>
+                <td>51.02</td>
+                <td>51.48</td>
+                <td>56.98</td>
+                <td>48.33</td>
+                <td>42.53</td>
+                <td>46.78</td>
+            </tr>
+            <tr>
+                <td>First-Line Supervisors of Production and Operating Workers</td>
+                <td>50.13</td>
+                <td>55.31</td>
+                <td>59.68</td>
+                <td>55.29</td>
+                <td>46.36</td>
+                <td>48.37</td>
+            </tr>
+            <tr>
+                <td>First-Line Supervisors of Retail Sales Workers</td>
+                <td>38.51</td>
+                <td>43.76</td>
+                <td>51.82</td>
+                <td>42.12</td>
+                <td>37.91</td>
+                <td>47.76</td>
+            </tr>
+            <tr>
+                <td>Food Preparation Workers</td>
+                <td>22.17</td>
+                <td>26.38</td>
+                <td>22.72</td>
+                <td>22.47</td>
+                <td>26.28</td>
+                <td>50.81</td>
+            </tr>
+            <tr>
+                <td>Food Service Managers</td>
+                <td>38.66</td>
+                <td>45.43</td>
+                <td>62.14</td>
+                <td>42.35</td>
+                <td>33.79</td>
+                <td>46.00</td>
+            </tr>
+            <tr>
+                <td>General Maintenance and Repair Workers</td>
+                <td>38.74</td>
+                <td>47.60</td>
+                <td>43.11</td>
+                <td>39.71</td>
+                <td>44.69</td>
+                <td>59.60</td>
+            </tr>
+            <tr>
+                <td>General Office Clerks</td>
+                <td>35.30</td>
+                <td>39.25</td>
+                <td>39.40</td>
+                <td>33.39</td>
+                <td>34.04</td>
+                <td>42.43</td>
+            </tr>
+            <tr>
+                <td>General and Operations Managers</td>
+                <td>64.55</td>
+                <td>68.37</td>
+                <td>75.63</td>
+                <td>67.79</td>
+                <td>54.00</td>
+                <td>53.76</td>
+            </tr>
+            <tr>
+                <td>Home Health Aides</td>
+                <td>44.75</td>
+                <td>45.50</td>
+                <td>49.44</td>
+                <td>44.52</td>
+                <td>49.52</td>
+                <td>75.52</td>
+            </tr>
+            <tr>
+                <td>Human Resources Workers</td>
+                <td>50.00</td>
+                <td>53.48</td>
+                <td>59.89</td>
+                <td>52.74</td>
+                <td>52.70</td>
+                <td>59.47</td>
+            </tr>
+            <tr>
+                <td>Industrial Truck and Tractor Operators</td>
+                <td>37.17</td>
+                <td>53.97</td>
+                <td>40.31</td>
+                <td>45.21</td>
+                <td>38.91</td>
+                <td>55.61</td>
+            </tr>
+            <tr>
+                <td>Inspectors, Testers, Sorters, Samplers, and Weighers</td>
+                <td>39.68</td>
+                <td>47.91</td>
+                <td>47.29</td>
+                <td>49.27</td>
+                <td>42.19</td>
+                <td>47.17</td>
+            </tr>
+            <tr>
+                <td>Insurance Sales Agents</td>
+                <td>43.53</td>
+                <td>55.59</td>
+                <td>47.50</td>
+                <td>46.38</td>
+                <td>38.52</td>
+                <td>43.17</td>
+            </tr>
+            <tr>
+                <td>Involuntarily Unemployed and Searching for a Job</td>
+                <td>8.02</td>
+                <td>7.57</td>
+                <td>15.91</td>
+                <td></td>
+                <td>14.81</td>
+                <td>11.88</td>
+            </tr>
+            <tr>
+                <td>Janitors and Building Cleaners</td>
+                <td>18.47</td>
+                <td>27.83</td>
+                <td>21.68</td>
+                <td>20.52</td>
+                <td>22.40</td>
+                <td>54.73</td>
+            </tr>
+            <tr>
+                <td>Landscaping and Groundskeeping Workers</td>
+                <td>27.84</td>
+                <td>38.36</td>
+                <td>32.18</td>
+                <td>30.05</td>
+                <td>44.15</td>
+                <td>56.04</td>
+            </tr>
+            <tr>
+                <td>Lawyers</td>
+                <td>87.03</td>
+                <td>86.61</td>
+                <td>79.48</td>
+                <td>83.33</td>
+                <td>76.91</td>
+                <td>62.47</td>
+            </tr>
+            <tr>
+                <td>Licensed Practical and Licensed Vocational Nurses</td>
+                <td>64.72</td>
+                <td>63.89</td>
+                <td>55.40</td>
+                <td>65.66</td>
+                <td>68.10</td>
+                <td>79.34</td>
+            </tr>
+            <tr>
+                <td>Maids and Housekeeping Cleaners</td>
+                <td>18.08</td>
+                <td>24.45</td>
+                <td>18.39</td>
+                <td>16.74</td>
+                <td>25.02</td>
+                <td>53.48</td>
+            </tr>
+            <tr>
+                <td>Management Analysts</td>
+                <td>65.21</td>
+                <td>70.04</td>
+                <td>64.86</td>
+                <td>69.18</td>
+                <td>52.69</td>
+                <td>44.74</td>
+            </tr>
+            <tr>
+                <td>Manual Laborers and Freight, Stock, and Material Movers</td>
+                <td>26.83</td>
+                <td>36.98</td>
+                <td>27.79</td>
+                <td>25.44</td>
+                <td>32.22</td>
+                <td>51.27</td>
+            </tr>
+            <tr>
+                <td>Manual Packers and Packagers</td>
+                <td>20.13</td>
+                <td>27.61</td>
+                <td>19.86</td>
+                <td>18.14</td>
+                <td>23.75</td>
+                <td>42.60</td>
+            </tr>
+            <tr>
+                <td>Marketing Managers</td>
+                <td>60.63</td>
+                <td>65.50</td>
+                <td>67.96</td>
+                <td>60.56</td>
+                <td>54.90</td>
+                <td>48.71</td>
+            </tr>
+            <tr>
+                <td>Medical Assistants</td>
+                <td>58.88</td>
+                <td>59.15</td>
+                <td>49.82</td>
+                <td>60.66</td>
+                <td>58.01</td>
+                <td>73.41</td>
+            </tr>
+            <tr>
+                <td>Medical and Health Services Managers</td>
+                <td>66.05</td>
+                <td>71.19</td>
+                <td>70.94</td>
+                <td>72.28</td>
+                <td>56.21</td>
+                <td>69.15</td>
+            </tr>
+            <tr>
+                <td>Nursing Assistants</td>
+                <td>48.77</td>
+                <td>48.39</td>
+                <td>39.40</td>
+                <td>55.17</td>
+                <td>52.89</td>
+                <td>74.23</td>
+            </tr>
+            <tr>
+                <td>Out of the Labor Force and Receiving Disability Benefits</td>
+                <td>15.25</td>
+                <td>19.74</td>
+                <td>10.84</td>
+                <td></td>
+                <td>14.29</td>
+                <td>21.88</td>
+            </tr>
+            <tr>
+                <td>Paralegals and Legal Assistants</td>
+                <td>63.42</td>
+                <td>63.29</td>
+                <td>44.75</td>
+                <td>64.42</td>
+                <td>60.96</td>
+                <td>57.88</td>
+            </tr>
+            <tr>
+                <td>Personal Care Aides</td>
+                <td>40.59</td>
+                <td>43.57</td>
+                <td>44.16</td>
+                <td>38.93</td>
+                <td>46.96</td>
+                <td>70.90</td>
+            </tr>
+            <tr>
+                <td>Plumbers, Pipefitters, and Steamfitters</td>
+                <td>40.35</td>
+                <td>58.81</td>
+                <td>48.26</td>
+                <td>48.18</td>
+                <td>50.61</td>
+                <td>59.75</td>
+            </tr>
+            <tr>
+                <td>Police Officers</td>
+                <td>62.62</td>
+                <td>61.35</td>
+                <td>73.21</td>
+                <td>57.48</td>
+                <td>67.38</td>
+                <td>67.79</td>
+            </tr>
+            <tr>
+                <td>Postsecondary Teachers</td>
+                <td>58.87</td>
+                <td>51.98</td>
+                <td>56.23</td>
+                <td>58.84</td>
+                <td>58.79</td>
+                <td>75.82</td>
+            </tr>
+            <tr>
+                <td>Preschool and Kindergarten Teachers</td>
+                <td>46.76</td>
+                <td>38.98</td>
+                <td>52.07</td>
+                <td>50.58</td>
+                <td>61.32</td>
+                <td>79.49</td>
+            </tr>
+            <tr>
+                <td>Project Management Specialists</td>
+                <td>65.78</td>
+                <td>70.53</td>
+                <td>77.02</td>
+                <td>69.16</td>
+                <td>63.60</td>
+                <td>50.44</td>
+            </tr>
+            <tr>
+                <td>Property, Real Estate, and Community Association Managers</td>
+                <td>61.13</td>
+                <td>66.19</td>
+                <td>69.57</td>
+                <td>55.76</td>
+                <td>51.64</td>
+                <td>46.17</td>
+            </tr>
+            <tr>
+                <td>Receptionists and Information Clerks</td>
+                <td>31.45</td>
+                <td>36.94</td>
+                <td>28.11</td>
+                <td>28.07</td>
+                <td>38.30</td>
+                <td>45.66</td>
+            </tr>
+            <tr>
+                <td>Registered Nurses</td>
+                <td>68.01</td>
+                <td>67.79</td>
+                <td>55.93</td>
+                <td>69.29</td>
+                <td>69.61</td>
+                <td>84.87</td>
+            </tr>
+            <tr>
+                <td>Retail Salespersons</td>
+                <td>27.85</td>
+                <td>32.47</td>
+                <td>29.15</td>
+                <td>21.32</td>
+                <td>31.42</td>
+                <td>40.57</td>
+            </tr>
+            <tr>
+                <td>Retired</td>
+                <td>43.00</td>
+                <td>29.60</td>
+                <td>45.80</td>
+                <td></td>
+                <td>39.36</td>
+                <td>32.95</td>
+            </tr>
+            <tr>
+                <td>Sales Managers</td>
+                <td>52.08</td>
+                <td>61.91</td>
+                <td>63.53</td>
+                <td>51.27</td>
+                <td>47.17</td>
+                <td>39.00</td>
+            </tr>
+            <tr>
+                <td>Sales Representatives of Services, Except Advertising, Insurance, Financial Services, and Travel</td>
+                <td>46.11</td>
+                <td>52.87</td>
+                <td>51.02</td>
+                <td>44.32</td>
+                <td>46.83</td>
+                <td>41.50</td>
+            </tr>
+            <tr>
+                <td>Sales Representatives, Wholesale and Manufacturing</td>
+                <td>42.27</td>
+                <td>49.69</td>
+                <td>47.57</td>
+                <td>43.79</td>
+                <td>42.15</td>
+                <td>42.55</td>
+            </tr>
+            <tr>
+                <td>Secondary School Teachers</td>
+                <td>50.14</td>
+                <td>44.94</td>
+                <td>54.55</td>
+                <td>54.58</td>
+                <td>61.12</td>
+                <td>80.24</td>
+            </tr>
+            <tr>
+                <td>Secretaries and Administrative Assistants, Except Legal, Medical, and Executive</td>
+                <td>48.89</td>
+                <td>50.34</td>
+                <td>42.87</td>
+                <td>46.16</td>
+                <td>43.87</td>
+                <td>47.83</td>
+            </tr>
+            <tr>
+                <td>Security Guards and Gambling Surveillance Officers</td>
+                <td>34.33</td>
+                <td>39.75</td>
+                <td>37.25</td>
+                <td>32.28</td>
+                <td>46.91</td>
+                <td>50.76</td>
+            </tr>
+            <tr>
+                <td>Shipping, Receiving, and Inventory Clerks</td>
+                <td>33.13</td>
+                <td>37.56</td>
+                <td>29.31</td>
+                <td>33.23</td>
+                <td>34.38</td>
+                <td>47.86</td>
+            </tr>
+            <tr>
+                <td>Social and Community Service Managers</td>
+                <td>51.37</td>
+                <td>48.57</td>
+                <td>60.38</td>
+                <td>55.00</td>
+                <td>56.92</td>
+                <td>75.18</td>
+            </tr>
+            <tr>
+                <td>Software Developers</td>
+                <td>74.02</td>
+                <td>79.82</td>
+                <td>64.58</td>
+                <td>80.09</td>
+                <td>68.35</td>
+                <td>58.81</td>
+            </tr>
+            <tr>
+                <td>Stay-at-Home Parents</td>
+                <td>26.23</td>
+                <td>10.42</td>
+                <td>58.63</td>
+                <td></td>
+                <td>47.00</td>
+                <td>57.72</td>
+            </tr>
+            <tr>
+                <td>Stockers and Order Fillers</td>
+                <td>22.30</td>
+                <td>27.88</td>
+                <td>22.44</td>
+                <td>21.25</td>
+                <td>25.67</td>
+                <td>43.47</td>
+            </tr>
+            <tr>
+                <td>Teaching Assistants</td>
+                <td>40.60</td>
+                <td>39.04</td>
+                <td>39.25</td>
+                <td>42.43</td>
+                <td>56.43</td>
+                <td>66.84</td>
+            </tr>
+            <tr>
+                <td>Voluntarily Unemployed</td>
+                <td>8.94</td>
+                <td>8.81</td>
+                <td>33.86</td>
+                <td></td>
+                <td>18.40</td>
+                <td>15.22</td>
+            </tr>
+            <tr>
+                <td>Waiters and Waitresses</td>
+                <td>20.94</td>
+                <td>26.50</td>
+                <td>22.02</td>
+                <td>17.51</td>
+                <td>34.83</td>
+                <td>47.85</td>
+            </tr>
+            <tr>
+                <td>Welding, Soldering, and Brazing Workers</td>
+                <td>43.88</td>
+                <td>57.65</td>
+                <td>45.36</td>
+                <td>54.55</td>
+                <td>48.42</td>
+                <td>51.84</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none";
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
