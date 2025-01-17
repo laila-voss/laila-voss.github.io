@@ -7,7 +7,6 @@ Recently, we asked Prolific participants to rate some occupations on the charact
 
 ```{r lib, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(Hmisc) # for weighted means
 library(DT) # for viewing data tables
 library(tidyverse) # for data cleaning and manipulation
 library(dataverse)
@@ -17,7 +16,7 @@ library(dplyr)
 ```
 
 ```{r import, echo=FALSE}
-data = read_dta("~/Dropbox/maternal_education_prestige/survey_design/data/Prepped Data/Avg Ratings for All Occ.dta")
+data = read_dta("/Users/laila/Github/Occupational-Prestige/data/Ratings/Prepped Data/Avg Ratings for All Occ, with average.dta")
 ratings <- as.data.frame(data)
 opratings <- ratings %>%
   mutate_if(is.numeric, round, 2)
@@ -26,9 +25,9 @@ opratings <- ratings %>%
 ```{r clean, echo=FALSE}
 colnames(opratings) <- gsub(".", " ", colnames(opratings), fixed=TRUE)
 
-opratings_db = opratings[,c("jobtitle", "Prestige", "Financial_Compensation", "Decision_Making_Power", "Difficulty_To_Get", "Interestingness", "Positive_Social_Impact")] %>%
+opratings_db = opratings[,c("jobtitle", "Prestige", "Financial_Compensation", "Decision_Making_Power", "Difficulty_To_Get", "Interestingness", "Positive_Social_Impact", "Avg_Index")] %>%
   DT::datatable( # put into interactive HTML table
-    colnames = c("Job Title", "Prestige", "Financial Compensation", "Decision Making Power", "Difficulty to Get", "Interestingness", "Positive Social Impact"), #colnames
+    colnames = c("Job Title", "Prestige", "Financial Compensation", "Decision Making Power", "Difficulty to Get", "Interestingness", "Positive Social Impact", "Avg. Across Characteristics"), #colnames
     options = list(
       lengthMenu = list(c(10, 50, -1), c('10', '50', 'All')),
         pageLength = 10
