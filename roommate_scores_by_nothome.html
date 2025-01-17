@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roommate Scores by Occupation & Not Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+        }
+        thead th {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            text-align: left;
+            padding: 10px;
+            position: relative;
+        }
+        thead th.sortable::after {
+            content: '▲▼';
+            position: absolute;
+            right: 10px;
+            font-size: 0.8em;
+            color: #ffffff;
+        }
+        thead th.sortable.asc::after {
+            content: '▲';
+        }
+        thead th.sortable.desc::after {
+            content: '▼';
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tbody td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Roommate Scores by Occupation & Not Home</h1>
+    <div class="container">
+        <table border="1" class="dataframe table table-striped" id="jobRatingsTable">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Job Title ↕</th>
+      <th>Not Home = 0 ↕</th>
+      <th>Not Home = 1 ↕</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>IT manager</td>
+      <td>1.50</td>
+      <td>3.50</td>
+    </tr>
+    <tr>
+      <td>childcare worker</td>
+      <td>2.00</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <td>truck driver</td>
+      <td>2.33</td>
+      <td>3.67</td>
+    </tr>
+    <tr>
+      <td>fast food worker</td>
+      <td>2.33</td>
+      <td>3.50</td>
+    </tr>
+    <tr>
+      <td>retail salesperson</td>
+      <td>2.40</td>
+      <td>2.80</td>
+    </tr>
+    <tr>
+      <td>police officer</td>
+      <td>2.50</td>
+      <td>1.67</td>
+    </tr>
+    <tr>
+      <td>healthcare manager</td>
+      <td>2.50</td>
+      <td>4.50</td>
+    </tr>
+    <tr>
+      <td>retail supervisor</td>
+      <td>2.50</td>
+      <td>3.20</td>
+    </tr>
+    <tr>
+      <td>nurse</td>
+      <td>2.50</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <td>factory supervisor</td>
+      <td>2.50</td>
+      <td>2.92</td>
+    </tr>
+    <tr>
+      <td>financial manager</td>
+      <td>2.50</td>
+      <td>3.83</td>
+    </tr>
+    <tr>
+      <td>wholesale sales rep</td>
+      <td>2.50</td>
+      <td>3.17</td>
+    </tr>
+    <tr>
+      <td>truck operator</td>
+      <td>2.50</td>
+      <td>2.62</td>
+    </tr>
+    <tr>
+      <td>construction supervisor</td>
+      <td>2.50</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <td>management analyst</td>
+      <td>2.57</td>
+      <td>4.50</td>
+    </tr>
+    <tr>
+      <td>restaurant manager</td>
+      <td>2.57</td>
+      <td>3.80</td>
+    </tr>
+    <tr>
+      <td>landscaper</td>
+      <td>2.67</td>
+      <td>3.20</td>
+    </tr>
+    <tr>
+      <td>sales manager</td>
+      <td>2.67</td>
+      <td>3.80</td>
+    </tr>
+    <tr>
+      <td>inventory clerk</td>
+      <td>2.67</td>
+      <td>3.67</td>
+    </tr>
+    <tr>
+      <td>carpenter</td>
+      <td>2.67</td>
+      <td>2.80</td>
+    </tr>
+    <tr>
+      <td>pastor</td>
+      <td>2.71</td>
+      <td>2.90</td>
+    </tr>
+    <tr>
+      <td>shelf stocker</td>
+      <td>2.83</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <td>maintenance worker</td>
+      <td>2.83</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <td>car mechanic</td>
+      <td>2.83</td>
+      <td>3.83</td>
+    </tr>
+    <tr>
+      <td>food prep worker</td>
+      <td>2.83</td>
+      <td>3.50</td>
+    </tr>
+    <tr>
+      <td>security guard</td>
+      <td>2.86</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <td>high school teacher</td>
+      <td>3.00</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <td>insurance sales agent</td>
+      <td>3.00</td>
+      <td>3.12</td>
+    </tr>
+    <tr>
+      <td>farm worker</td>
+      <td>3.00</td>
+      <td>2.86</td>
+    </tr>
+    <tr>
+      <td>janitor</td>
+      <td>3.00</td>
+      <td>3.50</td>
+    </tr>
+    <tr>
+      <td>accountant</td>
+      <td>3.00</td>
+      <td>3.71</td>
+    </tr>
+    <tr>
+      <td>receptionist</td>
+      <td>3.00</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <td>warehouse packer</td>
+      <td>3.00</td>
+      <td>4.14</td>
+    </tr>
+    <tr>
+      <td>restaurant server</td>
+      <td>3.00</td>
+      <td>2.75</td>
+    </tr>
+    <tr>
+      <td>administrative assistant</td>
+      <td>3.00</td>
+      <td>3.50</td>
+    </tr>
+    <tr>
+      <td>housekeeper</td>
+      <td>3.00</td>
+      <td>3.60</td>
+    </tr>
+    <tr>
+      <td>property manager</td>
+      <td>3.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <td>computer systems analyst</td>
+      <td>3.00</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <td>construction worker</td>
+      <td>3.00</td>
+      <td>3.33</td>
+    </tr>
+    <tr>
+      <td>teaching assistant</td>
+      <td>3.12</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <td>bookkeeper</td>
+      <td>3.14</td>
+      <td>3.25</td>
+    </tr>
+    <tr>
+      <td>licensed nurse</td>
+      <td>3.17</td>
+      <td>3.25</td>
+    </tr>
+    <tr>
+      <td>executive officer</td>
+      <td>3.20</td>
+      <td>2.80</td>
+    </tr>
+    <tr>
+      <td>preschool teacher</td>
+      <td>3.20</td>
+      <td>3.80</td>
+    </tr>
+    <tr>
+      <td>customer service representative</td>
+      <td>3.22</td>
+      <td>3.33</td>
+    </tr>
+    <tr>
+      <td>warehouse worker</td>
+      <td>3.25</td>
+      <td>3.25</td>
+    </tr>
+    <tr>
+      <td>plumber</td>
+      <td>3.25</td>
+      <td>4.20</td>
+    </tr>
+    <tr>
+      <td>HR worker</td>
+      <td>3.29</td>
+      <td>3.75</td>
+    </tr>
+    <tr>
+      <td>lawyer</td>
+      <td>3.29</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <td>home health aide</td>
+      <td>3.33</td>
+      <td>3.20</td>
+    </tr>
+    <tr>
+      <td>delivery driver</td>
+      <td>3.33</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <td>office clerk</td>
+      <td>3.33</td>
+      <td>4.33</td>
+    </tr>
+    <tr>
+      <td>cashier</td>
+      <td>3.33</td>
+      <td>3.17</td>
+    </tr>
+    <tr>
+      <td>sales supervisor</td>
+      <td>3.33</td>
+      <td>3.25</td>
+    </tr>
+    <tr>
+      <td>cook</td>
+      <td>3.33</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <td>teacher</td>
+      <td>3.33</td>
+      <td>4.50</td>
+    </tr>
+    <tr>
+      <td>quality inspector</td>
+      <td>3.45</td>
+      <td>3.33</td>
+    </tr>
+    <tr>
+      <td>project manager</td>
+      <td>3.50</td>
+      <td>2.80</td>
+    </tr>
+    <tr>
+      <td>paralegal</td>
+      <td>3.50</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <td>community services manager</td>
+      <td>3.50</td>
+      <td>3.75</td>
+    </tr>
+    <tr>
+      <td>school administrator</td>
+      <td>3.50</td>
+      <td>3.80</td>
+    </tr>
+    <tr>
+      <td>welder</td>
+      <td>3.50</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <td>service sales rep</td>
+      <td>3.50</td>
+      <td>3.67</td>
+    </tr>
+    <tr>
+      <td>kitchen supervisor</td>
+      <td>3.60</td>
+      <td>4.11</td>
+    </tr>
+    <tr>
+      <td>electrician</td>
+      <td>3.67</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <td>software developer</td>
+      <td>3.67</td>
+      <td>3.86</td>
+    </tr>
+    <tr>
+      <td>operations manager</td>
+      <td>3.71</td>
+      <td>3.40</td>
+    </tr>
+    <tr>
+      <td>nursing assistant</td>
+      <td>3.75</td>
+      <td>3.50</td>
+    </tr>
+    <tr>
+      <td>computer support specialist</td>
+      <td>3.75</td>
+      <td>2.83</td>
+    </tr>
+    <tr>
+      <td>college professor</td>
+      <td>3.78</td>
+      <td>4.14</td>
+    </tr>
+    <tr>
+      <td>office supervisor</td>
+      <td>3.80</td>
+      <td>3.40</td>
+    </tr>
+    <tr>
+      <td>marketing manager</td>
+      <td>4.00</td>
+      <td>2.83</td>
+    </tr>
+    <tr>
+      <td>medical assistant</td>
+      <td>4.00</td>
+      <td>3.33</td>
+    </tr>
+    <tr>
+      <td>personal care aide</td>
+      <td>4.50</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <td>construction manager</td>
+      <td>5.00</td>
+      <td>3.00</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+    <script>
+        // Make the table sortable
+        document.addEventListener('DOMContentLoaded', function() {
+            const table = document.getElementById('jobRatingsTable');
+            const headers = table.querySelectorAll('th');
+            const tableBody = table.querySelector('tbody');
+            const rows = tableBody.querySelectorAll('tr');
+
+            // Track the sort direction for each column
+            const directions = Array.from(headers).map(() => 'asc');
+
+            const resetArrows = () => {
+                headers.forEach(header => header.classList.remove('asc', 'desc'));
+            };
+
+            const sortColumn = (index, type) => {
+                const direction = directions[index] === 'asc' ? 1 : -1;
+                const sortedRows = Array.from(rows).sort((rowA, rowB) => {
+                    const cellA = rowA.querySelectorAll('td')[index].textContent.trim();
+                    const cellB = rowB.querySelectorAll('td')[index].textContent.trim();
+
+                    const a = type === 'number' ? parseFloat(cellA) : cellA.toLowerCase();
+                    const b = type === 'number' ? parseFloat(cellB) : cellB.toLowerCase();
+
+                    return direction * (a > b ? 1 : a < b ? -1 : 0);
+                });
+
+                // Remove old rows
+                while (tableBody.firstChild) {
+                    tableBody.removeChild(tableBody.firstChild);
+                }
+
+                // Append sorted rows
+                tableBody.append(...sortedRows);
+
+                // Reverse the sort direction and update arrows
+                resetArrows();
+                directions[index] = directions[index] === 'asc' ? 'desc' : 'asc';
+                headers[index].classList.add(directions[index]);
+            };
+
+            headers.forEach((header, index) => {
+                header.addEventListener('click', () => {
+                    const type = header.dataset.type;
+                    sortColumn(index, type);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
