@@ -19,7 +19,11 @@ library(dplyr)
 data = read_dta("/Users/laila/Github/Occupational-Prestige/data/Ratings/Prepped Data/Avg Ratings for All Occ, with average and shares.dta")
 ratings <- as.data.frame(data)
 opratings <- ratings %>%
-  mutate_if(is.numeric, round, 2)
+  mutate_if(is.numeric, round, 2) %>%
+  mutate(
+    share = paste0(share, "%"),
+    share_female = paste0(share_female, "%")
+  )
 ```
 
 ```{r clean, echo=FALSE}
