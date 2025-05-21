@@ -24,14 +24,32 @@ opratings <- ratings %>%
     share = paste0(share, "%"),
     share_female = paste0(share_female, "%")
   )
+
+# Define which occupations count as 'unemployed' (you can customize this list)
+unemployed_jobs <- c(
+  "Out of the Labor Force and Receiving Disability Benefits",
+  "Stay-at-Home Parents",
+  "Voluntarily Unemployed",
+  "Retired",
+  "Involuntarily Unemployed and Searching for a Job"
+)
+
+# Create a rank among employed occupations based on Avg_Index
+employed_only <- opratings %>%
+  filter(!jobtitle %in% unemployed_jobs) %>%
+  mutate(avg_rank = rank(-Avg_Index, ties.method = "min"))
+
+# Join the rank back to the full dataset, preserving all rows
+opratings <- opratings %>%
+  left_join(employed_only %>% select(jobtitle, avg_rank), by = "jobtitle")
 ```
 
 ```{r clean, echo=FALSE}
 colnames(opratings) <- gsub(".", " ", colnames(opratings), fixed=TRUE)
 
-opratings_db = opratings[,c("jobtitle", "Prestige", "Financial_Compensation", "Decision_Making_Power", "Difficulty_To_Get", "Interestingness", "Positive_Social_Impact", "Avg_Index", "share", "share_female")] %>%
+opratings_db = opratings[,c("avg_rank", "jobtitle", "Prestige", "Financial_Compensation", "Decision_Making_Power", "Difficulty_To_Get", "Interestingness", "Positive_Social_Impact", "Avg_Index", "share", "share_female")] %>%
   DT::datatable( # put into interactive HTML table
-    colnames = c("Job Title", "Prestige", "Financial Compensation", "Decision Making Power", "Difficulty to Get", "Interestingness", "Positive Social Impact", "Avg. Across Characteristics", "% of Labor Force", "% Female"), #colnames
+    colnames = c("Rank", "Job Title", "Prestige", "Financial Compensation", "Decision Making Power", "Difficulty to Get", "Interestingness", "Positive Social Impact", "Avg. Across Characteristics", "% of Labor Force", "% Female"), #colnames
     options = list(
       lengthMenu = list(c(10, 50, -1), c('10', '50', 'All')),
         pageLength = 10
