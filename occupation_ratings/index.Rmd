@@ -16,7 +16,7 @@ library(dplyr)
 ```
 
 ```{r import, echo=FALSE}
-data = read_dta("/Users/laila/Github/Occupational-Prestige/data/Ratings/Prepped Data/Avg Ratings for All Occ, with average.dta")
+data = read_dta("/Users/laila/Github/Occupational-Prestige/data/Ratings/Prepped Data/Avg Ratings for All Occ, with average and shares.dta")
 ratings <- as.data.frame(data)
 opratings <- ratings %>%
   mutate_if(is.numeric, round, 2)
@@ -25,9 +25,9 @@ opratings <- ratings %>%
 ```{r clean, echo=FALSE}
 colnames(opratings) <- gsub(".", " ", colnames(opratings), fixed=TRUE)
 
-opratings_db = opratings[,c("jobtitle", "Prestige", "Financial_Compensation", "Decision_Making_Power", "Difficulty_To_Get", "Interestingness", "Positive_Social_Impact", "Avg_Index")] %>%
+opratings_db = opratings[,c("jobtitle", "Prestige", "Financial_Compensation", "Decision_Making_Power", "Difficulty_To_Get", "Interestingness", "Positive_Social_Impact", "Avg_Index", "share", "share_female")] %>%
   DT::datatable( # put into interactive HTML table
-    colnames = c("Job Title", "Prestige", "Financial Compensation", "Decision Making Power", "Difficulty to Get", "Interestingness", "Positive Social Impact", "Avg. Across Characteristics"), #colnames
+    colnames = c("Job Title", "Prestige", "Financial Compensation", "Decision Making Power", "Difficulty to Get", "Interestingness", "Positive Social Impact", "Avg. Across Characteristics", "% of Labor Force", "% Female"), #colnames
     options = list(
       lengthMenu = list(c(10, 50, -1), c('10', '50', 'All')),
         pageLength = 10
