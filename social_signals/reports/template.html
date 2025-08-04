@@ -1,0 +1,52 @@
+<!-- reports/template.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Housing Report</title>
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+<body>
+  <h1>Weekly Housing Summary</h1>
+  <div id="content">
+    <p><strong>City:</strong> <span id="city"></span></p>
+    <p><strong>Report week:</strong> <span id="week"></span></p>
+    <p><strong>Total listings posted:</strong> <span id="total_listings"></span></p>
+    <p><strong>Listings contacted:</strong> <span id="contacted"></span></p>
+    <p><strong>Responses received:</strong> <span id="responses"></span></p>
+    <p><strong>Avg rent:</strong> $<span id="avg_rent"></span></p>
+    <p><strong>Private bathrooms:</strong> <span id="private_bathroom_pct"></span>%</p>
+    <!-- Add more fields as needed -->
+  </div>
+
+  <p id="error" style="color: red;"></p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+      document.getElementById("error").textContent = "No Dynata ID provided.";
+    } else {
+      fetch(`${id}.json`)
+        .then(res => {
+          if (!res.ok) throw new Error("Not found");
+          return res.json();
+        })
+        .then(data => {
+          document.getElementById("city").textContent = data.city;
+          document.getElementById("week").textContent = data.week_range;
+          document.getElementById("total_listings").textContent = data.total_listings;
+          document.getElementById("contacted").textContent = data.contacted;
+          document.getElementById("responses").textContent = data.responses;
+          document.getElementById("avg_rent").textContent = data.avg_rent;
+          document.getElementById("private_bathroom_pct").textContent = data.private_bathroom_pct;
+        })
+        .catch(() => {
+          document.getElementById("content").style.display = "none";
+          document.getElementById("error").textContent = "Invalid or missing data.";
+        });
+    }
+  </script>
+</body>
+</html>
+
