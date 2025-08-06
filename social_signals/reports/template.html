@@ -45,6 +45,13 @@
     <p><strong>Note:</strong> Requests for additional information must be submitted between <strong id="followup_start"></strong> and <strong id="followup_end"></strong>. For logistical reasons, we cannot respond to requests outside this window.</p>
   </div>
 
+  <div id="pre-report" style="display: none;">
+    <p>Thank you for participating in our housing study.</p>
+    <p>Your personalized summary is still in progress. Updates will begin on <strong id="ready_date"></strong> and will be posted to this page every Monday for at least four weeks, reflecting new roommate listings contacted on your behalf each week.</p>
+    <p>Please check back on or after <strong id="ready_date_2"></strong> for more information about when your first summary will be available and how to request additional details.</p>
+    <p>If you have questions in the meantime, feel free to contact us at <a href="mailto:berkeleyhousingstudy@gmail.com">berkeleyhousingstudy@gmail.com</a>.</p>
+  </div>
+
   <p id="error"></p>
 
   <script>
@@ -60,21 +67,29 @@
           return res.json();
         })
         .then(data => {
-          document.getElementById("city").textContent = data.city;
-          document.getElementById("city_2").textContent = data.city;
-          document.getElementById("week_range").textContent = data.week_range;
-          document.getElementById("week_range_2").textContent = data.week_range;
-          document.getElementById("total_listings").textContent = data.total_listings;
-          document.getElementById("contacted").textContent = data.contacted;
-          document.getElementById("contacted_2").textContent = data.contacted;
-          document.getElementById("responses").textContent = data.responses;
-          document.getElementById("avg_rent").textContent = data.avg_rent;
-          document.getElementById("private_bathroom_pct").textContent = data.private_bathroom_pct;
-          document.getElementById("below_r_pct").textContent = data.below_r_pct;
-          document.getElementById("above_r_pct").textContent = data.above_r_pct;
-          document.getElementById("followup_start").textContent = data.followup_start;
-          document.getElementById("followup_end").textContent = data.followup_end;
-          document.getElementById("report").style.display = "block";
+          if (data.report_ready) {
+            // Show the full report
+            document.getElementById("city").textContent = data.city;
+            document.getElementById("city_2").textContent = data.city;
+            document.getElementById("week_range").textContent = data.week_range;
+            document.getElementById("week_range_2").textContent = data.week_range;
+            document.getElementById("total_listings").textContent = data.total_listings;
+            document.getElementById("contacted").textContent = data.contacted;
+            document.getElementById("contacted_2").textContent = data.contacted;
+            document.getElementById("responses").textContent = data.responses;
+            document.getElementById("avg_rent").textContent = data.avg_rent;
+            document.getElementById("private_bathroom_pct").textContent = data.private_bathroom_pct;
+            document.getElementById("below_r_pct").textContent = data.below_r_pct;
+            document.getElementById("above_r_pct").textContent = data.above_r_pct;
+            document.getElementById("followup_start").textContent = data.followup_start;
+            document.getElementById("followup_end").textContent = data.followup_end;
+            document.getElementById("report").style.display = "block";
+          } else {
+            // Show the pre-report message
+            document.getElementById("ready_date").textContent = data.ready_date;
+            document.getElementById("ready_date_2").textContent = data.ready_date;
+            document.getElementById("pre-report").style.display = "block";
+          }
         })
         .catch(() => {
           document.getElementById("error").textContent = "Invalid or missing data for this ID.";
