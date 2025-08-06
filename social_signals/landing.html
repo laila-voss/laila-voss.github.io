@@ -1,19 +1,87 @@
-<form id="dynataForm">
-  <input type="text" id="dynataId" placeholder="Enter your Dynata ID" required />
-  <button type="submit">View Report</button>
-  <p id="error" style="color: red;"></p>
-</form>
-
-<script>
-  document.getElementById("dynataForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-    const id = document.getElementById("dynataId").value.trim();
-    const response = await fetch(`reports/${id}.json`);
-    if (response.ok) {
-      window.location.href = `reports/template.html?id=${id}`;
-    } else {
-      document.getElementById("error").innerText = "Invalid ID. Please try again.";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berkeley Housing Study – Personalized Report</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
     }
-  });
-</script>
+    h1 {
+      font-size: 1.4em;
+      margin-bottom: 1em;
+    }
+    input {
+      padding: 0.5em;
+      width: 100%;
+      max-width: 300px;
+      font-size: 1em;
+      margin-bottom: 1em;
+    }
+    button {
+      padding: 0.6em 1.2em;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    #error {
+      color: red;
+      margin-top: 0.5em;
+    }
+    .footer {
+      margin-top: 2em;
+      font-size: 0.95em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Berkeley Housing Study</h1>
+
+  <p>Thank you for completing our survey. As part of this study, we may send short, standardized housing inquiries that include a profile resembling yours to publicly posted roommate listings on a popular classified ads website, using the information you provided. If any listings respond, you will have the opportunity to request additional information.</p>
+
+  <p>You will also be able to access a personalized summary of housing listings in your city, including:</p>
+  <ul>
+    <li>Number of rooms listed in a week</li>
+    <li>Average price and size</li>
+    <li>The share of listings that responded to your profile</li>
+  </ul>
+
+  <p>Please enter your Dynata ID below to view your personalized summary:</p>
+
+  <input type="text" id="dynataId" placeholder="Enter your Dynata ID" />
+  <br>
+  <button onclick="goToReport()">View Report</button>
+
+  <p id="error"></p>
+
+  <div class="footer">
+    If you have any questions, feel free to contact us at <a href="mailto:berkeleyhousingstudy@gmail.com">berkeleyhousingstudy@gmail.com</a>.
+  </div>
+
+  <script>
+    function goToReport() {
+      const id = document.getElementById("dynataId").value.trim();
+      if (!id) {
+        document.getElementById("error").textContent = "Please enter your Dynata ID.";
+        return;
+      }
+
+      fetch(`reports/${id}.json`)
+        .then(res => {
+          if (!res.ok) throw new Error("Not found");
+          window.location.href = `reports/template.html?id=${id}`;
+        })
+        .catch(() => {
+          document.getElementById("error").textContent = "Invalid ID. Please try again.";
+        });
+    }
+  </script>
+</body>
+</html>
 
