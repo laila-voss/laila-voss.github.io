@@ -56,12 +56,12 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+    const token = params.get("token");
 
-    if (!id) {
-      document.getElementById("error").textContent = "No Dynata ID provided.";
+    if (!token) {
+      document.getElementById("error").textContent = "Missing access token.";
     } else {
-      fetch(`${id}.json`)
+      fetch(`${token}.json`)
         .then(res => {
           if (!res.ok) throw new Error("Not found");
           return res.json();

@@ -65,23 +65,33 @@
   </div>
 
   <script>
-    function goToReport() {
-      const id = document.getElementById("dynataId").value.trim();
-      if (!id) {
-        document.getElementById("error").textContent = "Please enter your Dynata ID.";
-        return;
-      }
+	function goToReport() {
+	  const id = document.getElementById("dynataId").value.trim();
+	  if (!id) {
+	    document.getElementById("error").textContent = "Please enter your Dynata ID.";
+	    return;
+	  }
 
-      fetch(`reports/${id}.json`)
-        .then(res => {
-          if (!res.ok) throw new Error("Not found");
-          window.location.href = `reports/template.html?id=${id}`;
-        })
-        .catch(() => {
-          document.getElementById("error").textContent = "Invalid ID. Please try again.";
-        });
-    }
+	  fetch("reports/id_to_token.json")
+	    .then(res => {
+	      if (!res.ok) throw new Error("Mapping file not found");
+	      return res.json();
+	    })
+	    .then(map => {
+	      const token = map[id];
+	      if (!token) {
+		document.getElementById("error").textContent = "Invalid ID. Please try again.";
+		return;
+	      }
+	      window.location.href = `reports/template.html?token=${token}`;
+	    })
+	    .catch(err => {
+	      console.error(err);
+	      document.getElementById("error").textContent = "Error loading ID map. Please try again later.";
+	    });
+	}
   </script>
+
 </body>
 </html>
 
