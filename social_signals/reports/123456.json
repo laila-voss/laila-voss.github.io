@@ -5,5 +5,9 @@
   "contacted": 25,
   "responses": 3,
   "avg_rent": 1420,
-  "private_bathroom_pct": 68
+  "private_bathroom_pct": 68,
+  "below_r_pct": 45,
+  "above_r_pct": 55,
+  "followup_start": "August 5",
+  "followup_end": "August 7"
 }

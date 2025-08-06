@@ -1,24 +1,51 @@
-<!-- reports/template.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Your Housing Report</title>
-  <meta name="robots" content="noindex, nofollow" />
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Personalized Housing Report</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      font-size: 1.4em;
+      margin-bottom: 1em;
+    }
+    #error {
+      color: red;
+      margin-top: 1em;
+    }
+    .footer {
+      margin-top: 2em;
+      font-size: 0.95em;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
-  <h1>Weekly Housing Summary</h1>
-  <div id="content">
-    <p><strong>City:</strong> <span id="city"></span></p>
-    <p><strong>Report week:</strong> <span id="week"></span></p>
-    <p><strong>Total listings posted:</strong> <span id="total_listings"></span></p>
-    <p><strong>Listings contacted:</strong> <span id="contacted"></span></p>
-    <p><strong>Responses received:</strong> <span id="responses"></span></p>
-    <p><strong>Avg rent:</strong> $<span id="avg_rent"></span></p>
-    <p><strong>Private bathrooms:</strong> <span id="private_bathroom_pct"></span>%</p>
-    <!-- Add more fields as needed -->
+  <h1>Berkeley Housing Study – Personalized Report</h1>
+
+  <div id="report" style="display: none;">
+    <p>Thank you again for participating in our study. Your personalized summary is now available. Below is a report of roommate listings in <strong id="city"></strong> that were contacted on your behalf between <strong id="week_range"></strong>.</p>
+
+    <p>During <strong id="week_range_2"></strong>, there were <strong id="total_listings"></strong> “roommate wanted” listings posted on the housing classified ads platform in our study in <strong id="city_2"></strong>.</p>
+
+    <p>We contacted <strong id="contacted"></strong> roommate listings on your behalf. Of these <strong id="contacted_2"></strong> listings, <strong id="responses"></strong> responded to the inquiry and indicated that the room was available.</p>
+
+    <p>Among the contacted listings, the average monthly rent was <strong>$<span id="avg_rent"></span></strong>, and <strong><span id="private_bathroom_pct"></span>%</strong> of the listings had a private bathroom. <strong><span id="below_r_pct"></span>%</strong> of listings mentioned a monthly rent lower than or equal to this amount, and <strong><span id="above_r_pct"></span>%</strong> mentioned a rent higher than that.</p>
+
+    <p>If you would like to follow up with any of the listings that responded, you can request more details (including the original posting links) by emailing the research team at <a href="mailto:berkeleyhousingstudy@gmail.com">berkeleyhousingstudy@gmail.com</a>. Please include your Dynata ID in the message (we will not be able to respond without your Dynata ID).</p>
+
+    <p><strong>Note:</strong> Requests for additional information must be submitted between <strong id="followup_start"></strong> and <strong id="followup_end"></strong>. For logistical reasons, we cannot respond to requests outside this window.</p>
   </div>
 
-  <p id="error" style="color: red;"></p>
+  <p id="error"></p>
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -34,16 +61,23 @@
         })
         .then(data => {
           document.getElementById("city").textContent = data.city;
-          document.getElementById("week").textContent = data.week_range;
+          document.getElementById("city_2").textContent = data.city;
+          document.getElementById("week_range").textContent = data.week_range;
+          document.getElementById("week_range_2").textContent = data.week_range;
           document.getElementById("total_listings").textContent = data.total_listings;
           document.getElementById("contacted").textContent = data.contacted;
+          document.getElementById("contacted_2").textContent = data.contacted;
           document.getElementById("responses").textContent = data.responses;
           document.getElementById("avg_rent").textContent = data.avg_rent;
           document.getElementById("private_bathroom_pct").textContent = data.private_bathroom_pct;
+          document.getElementById("below_r_pct").textContent = data.below_r_pct;
+          document.getElementById("above_r_pct").textContent = data.above_r_pct;
+          document.getElementById("followup_start").textContent = data.followup_start;
+          document.getElementById("followup_end").textContent = data.followup_end;
+          document.getElementById("report").style.display = "block";
         })
         .catch(() => {
-          document.getElementById("content").style.display = "none";
-          document.getElementById("error").textContent = "Invalid or missing data.";
+          document.getElementById("error").textContent = "Invalid or missing data for this ID.";
         });
     }
   </script>
