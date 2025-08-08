@@ -72,7 +72,7 @@
 	    return;
 	  }
 
-	  fetch("reports/id_to_token.json")
+	  fetch("reports/id_to_token.json?ts=" + new Date().getTime())
 	    .then(res => {
 	      if (!res.ok) throw new Error("Mapping file not found");
 	      return res.json();
