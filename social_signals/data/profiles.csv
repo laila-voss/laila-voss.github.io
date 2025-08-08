@@ -1,2 +1,3 @@
-dynata_id,creation_date,email,name,age,gender,occupation
-123456,2025-08-05,fake_craigslist_generated_email@craigslist.org,amy,23,female,teacher
+dynata_id,creation_date,email,city,name,age,gender,occupation
+123456,2025-08-01,fake_craigslist_generated_email@craigslist.org,San Francisco,amy,23,female,teacher
+654321,2025-08-05,blah,Austin,john,25,male,farmer
