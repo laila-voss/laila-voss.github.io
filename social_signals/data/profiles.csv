@@ -1,3 +1,11 @@
 dynata_id,creation_date,email,city,name,age,gender,occupation
-123456,2025-08-01,fake_craigslist_generated_email@craigslist.org,San Francisco,amy,23,female,teacher
-654321,2025-08-05,blah,Austin,john,25,male,farmer
+100000,2025-08-01,fake_craigslist_generated_email@craigslist.org,San Francisco,amy,23,female,teacher
+100001,2025-08-05,blah,Austin,john,25,male,farmer
+100002,2025-08-07,blah,San Francisco,kaia,23,female,dentist
+100003,2025-08-02,blah,San Francisco,josh,19,male,doctor
+100004,2025-08-01,blah,San Francisco,liam,20,male,researcher
+100005,2025-07-20,blah,San Francisco,abtin,21,male,lawyer
+100006,2025-07-05,blah,San Francisco,sriya,20,female,actor
+100007,2025-08-05,blah,San Francisco,jordan,21,nb,investor
+100008,2025-08-05,blah,San Francisco,lupita,23,female,unemployed
+100009,2025-08-05,blah,San Francisco,dan,24,male,realtor
