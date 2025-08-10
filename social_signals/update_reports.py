@@ -26,22 +26,22 @@ def read_csv_to_dict_list(file_path):
 profiles = read_csv_to_dict_list(PROFILES_FILE_PATH)
 craigslist_data = read_csv_to_dict_list(CRAIGSLIST_DATA_FILE_PATH)
 
-
+ready_ids = set()
 reports = {}
 for profile in profiles:
-    print(profile)
     date = datetime.date.fromisoformat(profile["creation_date"])
     if (today - date).days < 7:
         #report not ready
         reports[profile["dynata_id"]] = {"report_ready": False, "ready_date": (date + datetime.timedelta(days=7)).strftime("%B %-d")}
     else:
+        ready_ids.add(profile["dynata_id"])
         week_range = (today - datetime.timedelta(days=7)).strftime("%B %-d") + " - " + today.strftime("%B %-d")
         reports[profile["dynata_id"]] = {"report_ready": True, "city": profile["city"], "week_range": week_range,
-                                         "followup_start": "hello", "followup_end": "goodbye", "total_listings": 205,
-                                         "contacted": 25, "responses": 3, "avg_rent": 1420, "private_bathroom_pct": 68,
-                                         "below_r_pct": 45, "above_r_pct": 55,}
+                                         "followup_start": "hello", "followup_end": "goodbye", "total_listings": 0,
+                                         "contacted": 0, "responses": 0, "avg_rent": 0, "private_bathroom_pct": 0,
+                                         "below_r_pct": 0, "above_r_pct": 0, "rents": []}
 
-
+total = 0
 for listing in craigslist_data:
     date_string = listing["date"].split('T')[0]
     date = datetime.date.fromisoformat(date_string)
@@ -50,7 +50,29 @@ for listing in craigslist_data:
         print("entry outdated, won't use")
         continue
 
+    total += 1
+    if listing["dynata_id1"] in ready_ids:
+        reports[listing["dynata_id1"]]["rents"].append(listing["price"])
+        if listing["response1"] == "yes":
+            reports[listing["dynata_id1"]]["responses"] += 1
+        reports[listing["dynata_id1"]]
+    if listing["dynata_id2"] in ready_ids:
+        reports[listing["dynata_id2"]]["rents"].append(listing["price"])
+        if listing["response2"] == "yes":
+            reports[listing["dynata_id2"]]["responses"] += 1
 
+
+for ready_id in ready_ids:
+    person = reports[ready_id]
+    person["total_listings"] = total
+    person["contacted"] = len(person["rents"])
+
+    if len(person["rents"]) == 0:
+        continue
+
+    person["avg_rent"] = sum([int(x) for x in person["rents"]]) / len(person["rents"])
+    person["below_r_pct"] = len(list(filter(lambda rent: int(rent) < person["avg_rent"], person["rents"])))
+    person["above_r_pct"] = len(person["rents"]) - person["below_r_pct"]
 
 #delete all stale reports as well as map
 json_files = glob.glob(os.path.join('reports/', '*.json'))
@@ -67,9 +89,11 @@ for dynata_id, report in reports.items():
     token = secrets.token_urlsafe(16)
     id_to_token[dynata_id] = token
     with open(f"reports/{token}.json", mode='w') as report_file:
+        print(f'Writing: reports/{token}.json')
         report_file.write(json.dumps(report))
 
 
 
 with open("reports/id_to_token.json", mode='w') as map_file:
     map_file.write(json.dumps(id_to_token))
+    print(f'Writing: reports/id_to_token.json')
