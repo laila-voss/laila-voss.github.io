@@ -71,8 +71,8 @@ for ready_id in ready_ids:
         continue
 
     person["avg_rent"] = int(sum([int(x) for x in person["rents"]]) / len(person["rents"]))
-    person["below_r_pct"] = (len(list(filter(lambda rent: int(rent) < person["avg_rent"], person["rents"]))) / len(person["rents"])) * 100
-    person["above_r_pct"] = 100 - person["below_r_pct"]
+    person["below_r_pct"] = int((len(list(filter(lambda rent: int(rent) < person["avg_rent"], person["rents"]))) / len(person["rents"])) * 100)
+    person["above_r_pct"] = int(100 - person["below_r_pct"])
 
 #delete all stale reports as well as map
 json_files = glob.glob(os.path.join('reports/', '*.json'))
